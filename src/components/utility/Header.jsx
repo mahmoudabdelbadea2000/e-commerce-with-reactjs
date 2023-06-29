@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
+import CartContainer from "../cart/CartContainer";
 
 const Header = () => {
+  const [showCart, setShowCart] = useState(false);
   return (
     <nav className="bg-slate-950 text-white relative">
       <div className="container">
@@ -30,16 +32,18 @@ const Header = () => {
                   <i className="fa-regular fa-user"></i>
                 </div>
               </Link>
-              <Link to="/cart">
-                <div className="flex items-center">
-                  <span className="mr-1 hidden md:inline-block">cart</span>
-                  <i className="fa-solid fa-cart-shopping"></i>
-                </div>
-              </Link>
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={() => setShowCart((prev) => !prev)}
+              >
+                <span className="mr-1 hidden md:inline-block">cart</span>
+                <i className="fa-solid fa-cart-shopping"></i>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      {showCart && <CartContainer setShowCart={setShowCart} />}
     </nav>
   );
 };

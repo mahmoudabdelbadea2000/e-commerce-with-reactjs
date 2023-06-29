@@ -1,3 +1,5 @@
+export { default as CartContainer } from "./cart/CartContainer.jsx";
+export { default as CardItem } from "./cart/CartItem.jsx";
 export { default as CardCategories } from "./categories/CardCategories.jsx";
 export { default as CardCategoriesContainer } from "./categories/CardCategoriesContainer.jsx";
 export { default as HomeBrands } from "./home/HomeBrands.jsx";
