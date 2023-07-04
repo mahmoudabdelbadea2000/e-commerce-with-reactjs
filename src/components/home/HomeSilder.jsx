@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import slider from "../../images/banner-img.png";
 
 const HomeSilder = () => {
@@ -27,14 +28,16 @@ const HomeSilder = () => {
           >
             read more
           </button>
-          <button
-            type="button"
-            className="py-2 px-4 uppercase text-xs
+          <Link to="/products">
+            <button
+              type="button"
+              className="py-2 px-4 uppercase text-xs
               border border-white bg-white text-black
               transition hover:bg-transparent hover:text-white"
-          >
-            shop now
-          </button>
+            >
+              shop now
+            </button>
+          </Link>
         </div>
         <div className="mb-4 md:mb-0 flex justify-center items-center">
           <img src={slider} className="w-[75%]" alt="slider_image" />

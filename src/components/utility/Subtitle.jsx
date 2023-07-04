@@ -13,17 +13,17 @@ const Subtitle = ({ title, route, text }) => {
           >
             {title}
           </p>
-          {text && (
+          {text ? (
             <Link to={`${route}`}>
               <p
                 className="px-5 py-1 bg-slate-950 text-white transition
                           border-2 border-slate-950 hover:bg-transparent 
                           hover:text-black rounded-md"
               >
-                {text}
+                {text !== "" ? text : ""}
               </p>
             </Link>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

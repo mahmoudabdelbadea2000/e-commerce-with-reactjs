@@ -19,4 +19,7 @@
     -webkit-appearance: none;
     margin: 0;
   }
+  .filter-class .Dropdown-option {
+    @apply transition-colors bg-white hover:bg-black hover:text-white;
+  }
 }

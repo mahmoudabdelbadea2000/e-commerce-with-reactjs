@@ -13,9 +13,17 @@ const HomePage = () => {
     <>
       <HomeSilder />
       <HomeCategories />
-      <CardProductsContainer title="popular Products" text="more" route="/" />
+      <CardProductsContainer
+        title="popular Products"
+        text="more"
+        route="/products"
+      />
       <HomeDiscount />
-      <CardProductsContainer title="popular wires" text="more" route="/" />
+      <CardProductsContainer
+        title="popular wires"
+        text="more"
+        route="/products"
+      />
       <HomeBrands />
       <NewsLetter />
     </>
