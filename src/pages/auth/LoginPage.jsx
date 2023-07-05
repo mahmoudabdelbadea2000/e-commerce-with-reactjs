@@ -37,6 +37,14 @@ const LoginPage = () => {
             </Link>
           </p>
         </form>
+        <div>
+          <Link to="/user/allorders">
+            <h1 className="text-red-900 text-4xl">User</h1>
+          </Link>
+          <Link to="/admin/all-orders">
+            <h1 className="text-red-900 text-4xl">admin</h1>
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -12,18 +12,22 @@ const ShopProductPage = () => {
       <div className="container flex justify-center flex-col px-4 relative">
         <ProductSort />
         <SideFilter />
-        <div className="grid grid-cols-4 gap-2 p-4 bg-white rounded-sm">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </div>
-        <div className="flex justify-center mt-5">
-          <Pagination />
+        <div className="bg-white p-4 rounded-sm">
+          <div className="grid grid-cols-4 gap-2 ">
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+            <ProductCard colsapn="" />
+          </div>
+          <div className="flex justify-center mt-3">
+            <Pagination />
+          </div>
         </div>
       </div>
     </section>

@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 import pord from "../../images/headphone-prod-5.webp";
 import truncateStr from "../../logic/truncate.js";
 
-const ProductCard = () => {
+const ProductCard = ({ colsapn }) => {
   return (
-    <Link to="/products/:id" className="shadow col-span-2 md:col-span-1">
+    <Link
+      to="/products/:id"
+      className={`shadow ${
+        colsapn === "" ? "col-span-2 md:col-span-1" : colsapn
+      }`}
+    >
       <div className="bg-gray-100">
         <img src={pord} alt="product_image" />
       </div>

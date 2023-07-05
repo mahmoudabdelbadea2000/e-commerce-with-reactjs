@@ -10,10 +10,10 @@ const CardProductsContainer = ({ title, text, route }) => {
         className="grid grid-cols-4 justify-between 
         items-center gap-3 mt-4"
       >
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard colsapn="" />
+        <ProductCard colsapn="" />
+        <ProductCard colsapn="" />
+        <ProductCard colsapn="" />
       </div>
     </div>
   );
