@@ -38,4 +38,5 @@ export { default as UserProfile } from "./user/UserProfile.jsx";
 export { default as Footer } from "./utility/Footer.jsx";
 export { default as Header } from "./utility/Header.jsx";
 export { default as Pagination } from "./utility/Pagination.jsx";
+export { default as Spinner } from "./utility/Spinner.jsx";
 export { default as Subtitle } from "./utility/Subtitle.jsx";

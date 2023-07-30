@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import pord from "../../images/headphone-prod-5.webp";
-import truncateStr from "../../logic/truncate.js";
+import truncateStr from "../../logic/genral/truncate";
 
 const AdminProductCard = () => {
   return (

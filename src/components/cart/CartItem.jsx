@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import prod from "../../images/headphone-prod-6.webp";
-import truncateStr from "../../logic/truncate.js";
+import truncateStr from "../../logic/genral/truncate";
 
 const CartItem = () => {
   return (
