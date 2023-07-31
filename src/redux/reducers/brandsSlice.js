@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBrand, getAllBrands } from "../actions/brandActions";
+import {
+  createBrand,
+  getAllBrands,
+  getOneBrand,
+} from "../actions/brandActions";
 
 const initialState = {
   allBrands: null,
+  oneBrand: null,
   error: null,
   isLoading: true,
 };
@@ -35,6 +40,20 @@ export const brandsSlice = createSlice({
         state.error = null;
       })
       .addCase(createBrand.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payloads;
+      })
+      .addCase(getOneBrand.pending, (state, action) => {
+        state.oneBrand = null;
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getOneBrand.fulfilled, (state, action) => {
+        state.oneBrand = action.payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(getOneBrand.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payloads;
       });

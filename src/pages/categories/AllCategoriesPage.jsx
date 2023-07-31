@@ -23,14 +23,14 @@ const AllCategoriesPage = () => {
                   })
                 : ""}
             </div>
-            {pageCount >= 2 ? (
-              <div className="flex justify-center items-center pt-4">
-                <Pagination pageCount={pageCount} onPress={onPress} />
-              </div>
-            ) : (
-              ""
-            )}
           </div>
+        )}
+        {pageCount >= 2 ? (
+          <div className="flex justify-center items-center pt-4">
+            <Pagination pageCount={pageCount} onPress={onPress} />
+          </div>
+        ) : (
+          ""
         )}
       </div>
     </section>

@@ -15,10 +15,10 @@ const ShopProductPage = () => {
       <div className="container flex justify-center flex-col px-4 relative">
         <ProductSort />
         <SideFilter />
-        {isLoading === true ? (
-          <Spinner />
-        ) : (
-          <div className="bg-white p-4 rounded-sm">
+        <div className="bg-white p-4 rounded-sm">
+          {isLoading === true ? (
+            <Spinner />
+          ) : (
             <div className="grid grid-cols-4 gap-2 ">
               {allProducts?.payload?.data &&
               allProducts?.payload?.data.length >= 1
@@ -33,17 +33,17 @@ const ShopProductPage = () => {
                   })
                 : ""}
             </div>
-            <div className="flex justify-center mt-3">
-              {pageCount >= 2 ? (
-                <div className="flex justify-center items-center pt-4">
-                  <Pagination pageCount={pageCount} onPress={onPress} />
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
+          )}
+          <div className="flex justify-center mt-3">
+            {pageCount >= 2 ? (
+              <div className="flex justify-center items-center pt-4">
+                <Pagination pageCount={pageCount} onPress={onPress} />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

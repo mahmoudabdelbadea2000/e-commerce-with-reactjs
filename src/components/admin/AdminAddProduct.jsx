@@ -1,105 +1,186 @@
 import Multiselect from "multiselect-react-dropdown";
 import React from "react";
+import { CompactPicker } from "react-color";
+import { ToastContainer } from "react-toastify";
+import CreateProductHook from "../../logic/products/createProductHook";
+import Spinner from "../utility/Spinner";
 
 const AdminAddProduct = () => {
-  const options = [
-    { name: "Option 1", id: 1 },
-    { name: "Option 2", id: 2 },
-    { name: "Option 3", id: 3 },
-    { name: "Option 4", id: 4 },
-  ];
-  const onSelect = (selectedList, selectedItem) => {
-    console.log(selectedItem);
-    console.log(selectedList);
-  };
-  const onRemove = (selectedList, removedItem) => {
-    console.log(removedItem);
-    console.log(selectedList);
-  };
-
+  const {
+    productImg,
+    productName,
+    productDescription,
+    productCats,
+    productBrands,
+    priceBefore,
+    priceAfter,
+    productColors,
+    showColors,
+    Qty,
+    onChangeItems,
+    handelSubmit,
+    isPress,
+    options,
+    onSelect,
+    onRemove,
+    handelChangeComplete,
+    handelRemoveColor,
+  } = CreateProductHook();
   return (
     <section className="col-span-12 md:col-span-8 lg:col-span-9 rounded-md">
       <h2 className="font-bold text-2xl capitalize text-gray-800 pt-2 pb-5">
         add new product
       </h2>
-      <div>
+      <form className="flex flex-col gap-2">
         <p className="capitalize text-gray-500">image of product</p>
-        <i className="fa-regular fa-images text-8xl cursor-pointer text-gray-300"></i>
-        <form className="flex flex-col gap-2">
+        <div className="w-fit">
+          <label htmlFor="upload-photo">
+            <img
+              src={productImg}
+              alt="select product"
+              className="cursor-pointer w-32"
+            />
+          </label>
           <input
-            type="text"
-            className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
-            placeholder="product name"
+            type="file"
+            onChange={onChangeItems.onChangeProductImg}
+            className="hidden"
+            name="photo"
+            id="upload-photo"
           />
-          <textarea
-            className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
-            placeholder="discription of product"
-            cols="30"
-            rows="4"
-          ></textarea>
-          <input
-            type="number"
-            className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
-            placeholder="price before discount"
-          />
-          <input
-            type="number"
-            className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
-            placeholder="price after discount"
-          />
-          <select
-            placeholder="categories"
-            className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300 text-gray-400"
-          >
-            <option value="0" className="capitalize">
-              cat one
-            </option>
-            <option value="1" className="capitalize">
-              cat two
-            </option>
-            <option value="2" className="capitalize">
-              cat three
-            </option>
-          </select>
-          <select
-            placeholder="brands"
-            className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300 text-gray-400"
-          >
-            <option value="0" className="capitalize">
-              brand one
-            </option>
-            <option value="1" className="capitalize">
-              brand two
-            </option>
-            <option value="2" className="capitalize">
-              brand three
-            </option>
-          </select>
-          <Multiselect
-            className="rounded-md w-full md:w-[70%]"
-            placeholder="sub category"
-            options={options}
-            onSelect={onSelect}
-            onRemove={onRemove}
-            displayValue="name"
-          />
-          <div className="my-2">
-            <p className="text-gray-400">availaple colores</p>
-            <div className="flex justify-between items-center w-fit gap-1 mt-1">
-              <div className="w-6 h-6 bg-gray-400 rounded-full"></div>
-              <div className="w-6 h-6 bg-purple-700 rounded-full"></div>
-              <div className="w-6 h-6 bg-sky-500 rounded-full"></div>
-              <i className="fa-solid fa-plus text-gray-400 border border-gray-400 rounded-full p-1 cursor-pointer"></i>
-            </div>
+        </div>
+        <input
+          type="text"
+          className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
+          placeholder="product name"
+          value={productName}
+          onChange={onChangeItems.onChangeProductName}
+        />
+        <textarea
+          className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
+          placeholder="discription of product"
+          cols="30"
+          rows="4"
+          value={productDescription}
+          onChange={onChangeItems.onChangeProductDescription}
+        ></textarea>
+        <input
+          type="number"
+          className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
+          placeholder="price before discount"
+          value={priceBefore}
+          onChange={onChangeItems.onChangePriceBefore}
+        />
+        <input
+          type="number"
+          className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
+          placeholder="price after discount"
+          value={priceAfter}
+          onChange={onChangeItems.onChangePriceAfter}
+        />
+        <input
+          type="number"
+          className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
+          placeholder="Qauntity"
+          value={Qty}
+          onChange={onChangeItems.onChangeQTY}
+        />
+        <select
+          placeholder="categories"
+          className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300 text-gray-400"
+          onChange={onChangeItems.onChangeProductCatID}
+        >
+          <option value="0" className="capitalize">
+            select category
+          </option>
+          {productCats.length >= 1
+            ? productCats.map((prodCat) => {
+                return (
+                  <option
+                    value={prodCat._id}
+                    key={prodCat._id}
+                    className="capitalize"
+                  >
+                    {prodCat.name}
+                  </option>
+                );
+              })
+            : ""}
+        </select>
+        <select
+          placeholder="brands"
+          className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300 text-gray-400"
+          onChange={onChangeItems.onChangeProductBrandID}
+        >
+          <option value="0" className="capitalize">
+            select Brand
+          </option>
+          {productBrands.length >= 1
+            ? productBrands.map((prodBrand) => {
+                return (
+                  <option
+                    value={prodBrand._id}
+                    key={prodBrand._id}
+                    className="capitalize"
+                  >
+                    {prodBrand.name}
+                  </option>
+                );
+              })
+            : ""}
+        </select>
+        <Multiselect
+          className="rounded-md w-full md:w-[70%]"
+          placeholder="sub category"
+          options={options}
+          onSelect={onSelect}
+          onRemove={onRemove}
+          displayValue="name"
+        />
+        <div className="my-2">
+          <p className="text-gray-400">availaple colores</p>
+          <div className="flex justify-between items-center w-fit gap-1 mt-1">
+            {productColors.length >= 1
+              ? productColors.map((color, idx) => {
+                  return (
+                    <div
+                      key={idx}
+                      style={{ backgroundColor: color }}
+                      className={`w-8 h-8 rounded-full transition-all hover:border hover:border-black cursor-pointer`}
+                      onClick={() => handelRemoveColor(color)}
+                    ></div>
+                  );
+                })
+              : ""}
+            <i
+              onClick={onChangeItems.onChangeShowColor}
+              className="fa-solid w-8 h-8 flex justify-center items-center fa-plus text-gray-400 border border-gray-400 rounded-full p-1 cursor-pointer"
+            ></i>
+            {showColors && (
+              <CompactPicker onChangeComplete={handelChangeComplete} />
+            )}
           </div>
+        </div>
+        {isPress === true ? <Spinner /> : ""}
+        {isPress === true ? (
           <button
             type="submit"
-            className="capitalize bg-slate-950 text-white py-3 px-10 rounded-md w-fit"
+            className="capitalize text-white py-2 px-6 rounded-md w-fit disabled:bg-slate-800"
+            disabled
           >
             save edites
           </button>
-        </form>
-      </div>
+        ) : (
+          <button
+            type="submit"
+            onClick={handelSubmit}
+            className="capitalize bg-slate-950 text-white py-3 px-10 rounded-md w-fit disabled:bg-slate-800"
+          >
+            save edites
+          </button>
+        )}
+      </form>
+      <ToastContainer />
     </section>
   );
 };
