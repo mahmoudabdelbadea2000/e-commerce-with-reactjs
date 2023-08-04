@@ -1,7 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { useDeleteData } from "../../hooks/useDeleteData";
 import { useGetData } from "../../hooks/useGetData";
 import { useInsertDataWithImage } from "../../hooks/useInsertData";
-import { CREATE_PRODUCT, GET_ALL_PRODUCTS, GET_ONE_PRODUCT } from "../types";
+import { useUpdateDataWithImage } from "../../hooks/useUpdateData";
+import {
+  CREATE_PRODUCT,
+  DELETE_PRODUCT,
+  GET_ALL_PRODUCTS,
+  GET_ONE_PRODUCT,
+  UPDATE_PRODUCT,
+} from "../types";
 
 export const getAllProducts = createAsyncThunk(
   GET_ALL_PRODUCTS,
@@ -35,6 +43,35 @@ export const createProduct = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useInsertDataWithImage("/api/v1/products", formData);
+      return res;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteProduct = createAsyncThunk(
+  DELETE_PRODUCT,
+  async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useDeleteData(`/api/v1/products/${id}`);
+      return res;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateProduct = createAsyncThunk(
+  UPDATE_PRODUCT,
+  async ({ prodID, formData }, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useUpdateDataWithImage(
+        `/api/v1/products/${prodID}`,
+        formData
+      );
       return res;
     } catch (error) {
       return rejectWithValue(error.message);

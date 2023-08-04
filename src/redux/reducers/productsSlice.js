@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createProduct,
+  deleteProduct,
   getAllProducts,
   getOneProduct,
+  updateProduct,
 } from "../actions/productsActions";
 
 const initialState = {
   allProducts: null,
   oneProduct: null,
+  updateProd: null,
   error: null,
   isLoading: true,
 };
@@ -17,7 +20,7 @@ export const productsSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.pending, (state, action) => {
+      .addCase(getAllProducts.pending, (state) => {
         state.allProducts = null;
         state.isLoading = true;
         state.error = null;
@@ -31,7 +34,7 @@ export const productsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payloads;
       })
-      .addCase(getOneProduct.pending, (state, action) => {
+      .addCase(getOneProduct.pending, (state) => {
         state.oneProduct = null;
         state.isLoading = true;
         state.error = null;
@@ -45,15 +48,41 @@ export const productsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payloads;
       })
-      .addCase(createProduct.pending, (state, action) => {
+      .addCase(createProduct.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(createProduct.fulfilled, (state, action) => {
+      .addCase(createProduct.fulfilled, (state) => {
         state.isLoading = false;
         state.error = null;
       })
       .addCase(createProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payloads;
+      })
+      .addCase(deleteProduct.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteProduct.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payloads;
+      })
+      .addCase(updateProduct.pending, (state) => {
+        state.updateProd = null;
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.updateProd = action.payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payloads;
       });

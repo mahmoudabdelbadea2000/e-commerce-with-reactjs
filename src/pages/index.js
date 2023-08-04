@@ -4,6 +4,7 @@ export { default as AdminAddProductPage } from "./admin/AdminAddProductPage.jsx"
 export { default as AdminAddSubCatPage } from "./admin/AdminAddSubCatPage.jsx";
 export { default as AdminManageProductsPage } from "./admin/AdminManageProductsPage.jsx";
 export { default as AdminOrderPage } from "./admin/AdminOrderPage.jsx";
+export { default as AdminUpdateProductPage } from "./admin/AdminUpdateProductPage.jsx";
 export { default as LoginPage } from "./auth/LoginPage.jsx";
 export { default as RegisterPage } from "./auth/RegisterPage.jsx";
 export { default as AllBrandsPage } from "./brands/AllBrandsPage.jsx";

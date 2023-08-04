@@ -1,7 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useGetData } from "../../hooks/useGetData.js";
 import { useInsertData } from "../../hooks/useInsertData.js";
-import { CREATE_SUB_CATEGORY, GET_SUB_CATEGORY_ON_CATEGORY } from "../types.js";
+import {
+  CREATE_SUB_CATEGORY,
+  GET_ONE_SUB_CATEGORY,
+  GET_SUB_CATEGORY_ON_CATEGORY,
+} from "../types.js";
 
 export const createSubCategory = createAsyncThunk(
   CREATE_SUB_CATEGORY,
@@ -22,6 +26,19 @@ export const getAllSubCatsOnCategory = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useGetData(`/api/v1/categories/${catID}/subcategories`);
+      return res;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getOneSubCats = createAsyncThunk(
+  GET_ONE_SUB_CATEGORY,
+  async (subID, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetData(`/api/v1/subcategories/${subID}`);
       return res;
     } catch (error) {
       return rejectWithValue(error.message);
