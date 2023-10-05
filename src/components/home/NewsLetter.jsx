@@ -15,6 +15,7 @@ const NewsLetter = () => {
               placeholder="email address"
               className="pl-2 focus:outline-none
               border border-gray-400"
+              id="email-address"
             />
             <button
               type="button"

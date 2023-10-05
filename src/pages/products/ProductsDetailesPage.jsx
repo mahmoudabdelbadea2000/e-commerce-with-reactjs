@@ -1,13 +1,11 @@
 import React from "react";
 import { CardProductsContainer } from "../../components";
-import CategoryHeader from "../../components/categories/CategoryHeader";
 import ProductDetailes from "../../components/products/ProductDetailes";
 import Rating from "../../components/rate/Rating";
 
 const ProductsDetailesPage = () => {
   return (
     <section className="bg-gray-100">
-      <CategoryHeader />
       <div className="container px-4 flex justify-center flex-col pt-4">
         <ProductDetailes />
         <Rating />

@@ -5,6 +5,7 @@ import CartContainer from "../cart/CartContainer";
 
 const Header = () => {
   const [showCart, setShowCart] = useState(false);
+
   return (
     <nav className="bg-slate-950 text-white relative">
       <div className="container">
@@ -19,6 +20,7 @@ const Header = () => {
               type="text"
               placeholder="search about every thinks"
               className="w-full rounded-sm focus:outline-none text-slate-400 pl-2 py-1"
+              id="searchFiled"
             />
           </div>
           <div className="col-span-2 flex justify-center gap-3">

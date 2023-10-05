@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBrands } from "../../redux/actions/brandActions";
+import {
+  getAllBrands,
+  getAllBrandsWithoutPage,
+} from "../../redux/actions/brandActions";
 
 const GetAllBrandsHook = () => {
   const [brands, setBrands] = useState(null);
+  const [brandsWithoutPage, setBrandsWithoutPage] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
     const get = async () => {
       const res = await dispatch(getAllBrands());
       setBrands(res);
+      const resBrands = await dispatch(getAllBrandsWithoutPage());
+      setBrandsWithoutPage(resBrands?.payload.data);
     };
     get();
   }, [dispatch]);
@@ -20,14 +26,17 @@ const GetAllBrandsHook = () => {
     setBrands(res);
   };
 
-  let pageCount;
-  if (brands?.payload.paginationResult) {
-    pageCount = brands.payload.paginationResult.numberOfPages;
-  } else {
-    pageCount = 1;
-  }
+  let pageCount = brands?.payload.paginationResult
+    ? brands.payload.paginationResult.numberOfPages
+    : 1;
 
-  return { brands, pageCount, onPress, isLoading };
+  return {
+    brands,
+    brandsWithoutPage,
+    pageCount,
+    onPress,
+    isLoading,
+  };
 };
 
 export default GetAllBrandsHook;

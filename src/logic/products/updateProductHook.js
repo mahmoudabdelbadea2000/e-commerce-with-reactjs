@@ -5,10 +5,7 @@ import avatar from "../../images/avatar.png";
 import { getAllBrandsWithoutPage } from "../../redux/actions/brandActions";
 import { getAllCategoriesWithoutPage } from "../../redux/actions/categoriesActions";
 import { updateProduct } from "../../redux/actions/productsActions";
-import {
-  getAllSubCatsOnCategory,
-  getOneSubCats,
-} from "../../redux/actions/subCatsActions";
+import { getAllSubCatsOnCategory } from "../../redux/actions/subCatsActions";
 import GetOneProductHook from "./getOneProductHook";
 
 const UpdateProductHook = (prodID) => {
@@ -27,7 +24,6 @@ const UpdateProductHook = (prodID) => {
   const [productBrandID, setProductBrandID] = useState("");
   const [productColors, setProductColors] = useState([]);
   const [selectedSubID, setSelectedSubID] = useState([]);
-  // const [selectedSub, setSelectedSub] = useState([]);
   const [showColors, setShowColors] = useState(false);
   const [isPress, setIsPress] = useState(false);
   const [options, setOptions] = useState([]);
@@ -86,19 +82,6 @@ const UpdateProductHook = (prodID) => {
     });
     setProductColors(updateColors);
   };
-
-  // useEffect(() => {
-  //   if (selectedSubID.length >= 1) {
-  //     selectedSubID.map(async (id) => {
-  //       const res = await dispatch(getOneSubCats(id));
-  //       // console.log();
-  //       setSelectedSub(res?.payload.data);
-  //     });
-  //   }
-  // }, [dispatch, selectedSub, selectedSubID]);
-
-  // const { oneSubCat } = useSelector((state) => state.subCat);
-  // console.log(selectedSub);
 
   const onChangeItems = {
     onChangeProductImg: (e) => {

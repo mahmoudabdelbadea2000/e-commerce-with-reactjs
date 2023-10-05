@@ -13,3 +13,4 @@ export const GET_ONE_PRODUCT = "products/get-one-product";
 export const CREATE_PRODUCT = "products/create-product";
 export const DELETE_PRODUCT = "products/delete-product";
 export const UPDATE_PRODUCT = "products/update-product";
+export const SEARCH_PRODUCTS = "products/search-product";

@@ -7,6 +7,7 @@ const DeleteProductHook = (prodID) => {
   const [showModal, setShowModal] = useState(false);
 
   const onChangeModal = (e) => {
+    e.persist();
     setShowModal(e);
   };
 

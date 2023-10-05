@@ -1,6 +1,8 @@
 import React from "react";
+import GetAllCategoriesHook from "../../logic/categories/getAllCategoriesHook";
 
 const CategoryHeader = () => {
+  const { cats } = GetAllCategoriesHook();
   return (
     <section className="bg-white py-2">
       <div className="container px-4">
@@ -8,18 +10,18 @@ const CategoryHeader = () => {
           <p className="capitalize transition-colors hover:text-gray-900 cursor-pointer">
             all
           </p>
-          <p className="capitalize transition-colors hover:text-gray-900 cursor-pointer">
-            electronices
-          </p>
-          <p className="capitalize transition-colors hover:text-gray-900 cursor-pointer">
-            clothes
-          </p>
-          <p className="capitalize transition-colors hover:text-gray-900 cursor-pointer">
-            offers
-          </p>
-          <p className="capitalize transition-colors hover:text-gray-900 cursor-pointer">
-            more..
-          </p>
+          {cats?.payload.data && cats?.payload.data.length >= 1
+            ? cats?.payload.data.map((cat) => {
+                return (
+                  <p
+                    className="capitalize transition-colors hover:text-gray-900 cursor-pointer"
+                    key={cat._id}
+                  >
+                    {cat.name}
+                  </p>
+                );
+              })
+            : ""}
         </div>
       </div>
     </section>

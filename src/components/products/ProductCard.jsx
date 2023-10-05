@@ -5,13 +5,13 @@ import truncateStr from "../../logic/genral/truncate";
 const ProductCard = ({ colsapn, product }) => {
   return (
     <Link
-      to={`/products/${product._id}`}
+      to={`/products/`}
       className={`shadow ${
         colsapn === "" ? "col-span-2 md:col-span-1" : colsapn
       }`}
     >
       <div className="bg-gray-100">
-        <img src={product.imageCover} alt={product.slug} />
+        <img src={product.imageCover} alt="" />
       </div>
       <div className="px-2 pb-2">
         <i className="fa-regular fa-heart cursor-pointer"></i>

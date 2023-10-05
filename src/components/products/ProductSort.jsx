@@ -3,12 +3,20 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 const ProductSort = () => {
-  const options = ["sort by", "upper price", "lower price"];
+  const options = [
+    { value: "0", label: "sort by" },
+    { value: "+price", label: "Lower price" },
+    { value: "-price", label: "Upper price" },
+    { value: "+quantity", label: "Lower Quantity" },
+    { value: "-quantity", label: "Upper Quantity" },
+  ];
   const defaultOption = options[0];
 
   return (
     <div className="flex justify-between items-center py-2 px-4 my-4 bg-white">
-      <h4 className="font-bold text-sm md:text-xl text-gray-900">search result 400</h4>
+      <h4 className="font-bold text-sm md:text-xl text-gray-900">
+        search result 6
+      </h4>
       <Dropdown
         options={options}
         className="w-[190px]"

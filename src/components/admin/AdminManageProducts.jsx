@@ -15,8 +15,8 @@ const AdminManageProducts = () => {
         <Spinner />
       ) : (
         <div className="grid grid-cols-4 md:grid-cols-3 gap-2">
-          {allProducts?.payload?.data && allProducts?.payload?.data.length >= 1
-            ? allProducts?.payload?.data.map((prod) => {
+          {allProducts?.data && allProducts?.data.length >= 1
+            ? allProducts?.data.map((prod) => {
                 return (
                   <AdminProductCard
                     prod={prod}
