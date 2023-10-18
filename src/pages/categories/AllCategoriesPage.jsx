@@ -15,22 +15,22 @@ const AllCategoriesPage = () => {
         {isLoading === true ? (
           <Spinner />
         ) : (
-          <div>
-            <div className="grid grid-cols-4 gap-2">
-              {cats?.payload?.data && cats?.payload?.data.length >= 1
-                ? cats?.payload?.data.map((cat) => {
-                    return <CardCategories cat={cat} key={cat._id} />;
-                  })
-                : ""}
-            </div>
-            {pageCount >= 2 ? (
-              <div className="flex justify-center items-center pt-4">
-                <Pagination pageCount={pageCount} onPress={onPress} />
-              </div>
-            ) : (
-              ""
-            )}
+          <div className="grid grid-cols-4 gap-2">
+            {cats?.payload?.data && cats?.payload?.data.length >= 1
+              ? cats?.payload?.data.map((cat) => {
+                  return <CardCategories cat={cat} key={cat._id} />;
+                })
+              : ""}
           </div>
+        )}
+      </div>
+      <div className="flex justify-center items-center pt-4">
+        {pageCount >= 2 ? (
+          <div className="flex justify-center items-center pt-4">
+            <Pagination pageCount={pageCount} onPress={onPress} />
+          </div>
+        ) : (
+          ""
         )}
       </div>
     </section>
