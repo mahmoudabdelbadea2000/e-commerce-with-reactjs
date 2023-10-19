@@ -1,7 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useGetData } from "../../hooks/useGetData.js";
 import { useInsertDataWithImage } from "../../hooks/useInsertData.js";
-import { CREATE_BRAND, GET_ALL_BRANDS } from "../types.js";
+import {
+  CREATE_BRAND,
+  GET_ALL_BRANDS,
+  GET_ALL_BRANDS_NON_PAGE,
+} from "../types.js";
 
 export const getAllBrands = createAsyncThunk(
   GET_ALL_BRANDS,
@@ -9,6 +13,19 @@ export const getAllBrands = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useGetData(`/api/v1/brands?limit=2&page=${page}`);
+      return res;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAllBrandsNonPage = createAsyncThunk(
+  GET_ALL_BRANDS_NON_PAGE,
+  async (_, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetData(`/api/v1/brands`);
       return res;
     } catch (error) {
       return rejectWithValue(error.message);

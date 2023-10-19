@@ -1,21 +1,18 @@
 import Multiselect from "multiselect-react-dropdown";
 import React from "react";
+import { CompactPicker } from "react-color";
+import { ToastContainer } from "react-toastify";
+import CreateProductHook from "../../logic/products/createProductHook";
+import Spinner from "../utility/Spinner";
 
 const AdminAddProduct = () => {
-  const options = [
-    { name: "Option 1", id: 1 },
-    { name: "Option 2", id: 2 },
-    { name: "Option 3", id: 3 },
-    { name: "Option 4", id: 4 },
-  ];
-  const onSelect = (selectedList, selectedItem) => {
-    console.log(selectedItem);
-    console.log(selectedList);
-  };
-  const onRemove = (selectedList, removedItem) => {
-    console.log(removedItem);
-    console.log(selectedList);
-  };
+  const {
+    globalProductState,
+    onChangeItems,
+    allCategories,
+    allBrands,
+    handleCreateProduct,
+  } = CreateProductHook();
 
   return (
     <section className="col-span-12 md:col-span-8 lg:col-span-9 rounded-md">
@@ -24,82 +21,150 @@ const AdminAddProduct = () => {
       </h2>
       <div>
         <p className="capitalize text-gray-500">image of product</p>
-        <i className="fa-regular fa-images text-8xl cursor-pointer text-gray-300"></i>
+        <div className="w-fit mb-4">
+          <label htmlFor="upload-photo">
+            <img
+              src={globalProductState.img}
+              alt="select product"
+              className="cursor-pointer w-32"
+            />
+          </label>
+          <input
+            type="file"
+            onChange={onChangeItems.img}
+            className="hidden"
+            name="photo"
+            id="upload-photo"
+          />
+        </div>
         <form className="flex flex-col gap-2">
           <input
+            value={globalProductState.prodName}
+            onChange={onChangeItems.prodName}
             type="text"
             className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
             placeholder="product name"
           />
           <textarea
+            value={globalProductState.description}
+            onChange={onChangeItems.description}
             className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
             placeholder="discription of product"
             cols="30"
             rows="4"
           ></textarea>
           <input
+            value={globalProductState.QTY}
+            onChange={onChangeItems.QTY}
+            type="number"
+            className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
+            placeholder="quantity of product"
+          />
+          <input
+            value={globalProductState.priceBefore}
+            onChange={onChangeItems.priceBefore}
             type="number"
             className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
             placeholder="price before discount"
           />
           <input
+            value={globalProductState.priceAfter}
+            onChange={onChangeItems.priceAfter}
             type="number"
             className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300"
             placeholder="price after discount"
           />
           <select
+            onChange={onChangeItems.catID}
             placeholder="categories"
             className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300 text-gray-400"
           >
             <option value="0" className="capitalize">
-              cat one
+              select category
             </option>
-            <option value="1" className="capitalize">
-              cat two
-            </option>
-            <option value="2" className="capitalize">
-              cat three
-            </option>
+            {allCategories?.data.length > 0
+              ? allCategories?.data.map((cat) => {
+                  return (
+                    <option
+                      value={cat._id}
+                      className="capitalize"
+                      key={cat._id}
+                    >
+                      {cat.name}
+                    </option>
+                  );
+                })
+              : null}
           </select>
           <select
+            onChange={onChangeItems.brandID}
             placeholder="brands"
             className="focus:outline-none bg-transparent py-3 rounded-md w-full md:w-[70%] pl-2 border border-gray-300 text-gray-400"
           >
             <option value="0" className="capitalize">
-              brand one
+              select brand
             </option>
-            <option value="1" className="capitalize">
-              brand two
-            </option>
-            <option value="2" className="capitalize">
-              brand three
-            </option>
+            {allBrands?.data.length > 0
+              ? allBrands?.data.map((brand) => {
+                  return (
+                    <option
+                      value={brand._id}
+                      className="capitalize"
+                      key={brand._id}
+                    >
+                      {brand.name}
+                    </option>
+                  );
+                })
+              : null}
           </select>
           <Multiselect
             className="rounded-md w-full md:w-[70%]"
             placeholder="sub category"
-            options={options}
-            onSelect={onSelect}
-            onRemove={onRemove}
+            options={globalProductState.options}
+            onSelect={onChangeItems.select}
+            onRemove={onChangeItems.remove}
             displayValue="name"
           />
           <div className="my-2">
             <p className="text-gray-400">availaple colores</p>
             <div className="flex justify-between items-center w-fit gap-1 mt-1">
-              <div className="w-6 h-6 bg-gray-400 rounded-full"></div>
-              <div className="w-6 h-6 bg-purple-700 rounded-full"></div>
-              <div className="w-6 h-6 bg-sky-500 rounded-full"></div>
-              <i className="fa-solid fa-plus text-gray-400 border border-gray-400 rounded-full p-1 cursor-pointer"></i>
+              {globalProductState.colors.length > 0
+                ? globalProductState.colors.map((color, idx) => {
+                    return (
+                      <div
+                        className="w-6 h-6 rounded-full transition-all hover:border-[1px] hover:border-black cursor-pointer"
+                        style={{ backgroundColor: color }}
+                        key={idx}
+                        onClick={() => onChangeItems.removeColor(color)}
+                      ></div>
+                    );
+                  })
+                : null}
+
+              <i
+                className="fa-solid fa-plus text-gray-400 border border-gray-400 rounded-full p-1 cursor-pointer"
+                onClick={onChangeItems.showColor}
+              ></i>
+              {globalProductState.showColor && (
+                <CompactPicker onChangeComplete={onChangeItems.color} />
+              )}
             </div>
           </div>
-          <button
-            type="submit"
-            className="capitalize bg-slate-950 text-white py-3 px-10 rounded-md w-fit"
-          >
-            save edites
-          </button>
+          {globalProductState.isPress ? (
+            <Spinner />
+          ) : (
+            <button
+              type="submit"
+              onClick={handleCreateProduct}
+              className="capitalize bg-slate-950 text-white py-3 px-10 rounded-md w-fit"
+            >
+              save edites
+            </button>
+          )}
         </form>
       </div>
+      <ToastContainer />
     </section>
   );
 };

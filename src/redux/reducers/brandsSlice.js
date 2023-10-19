@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBrand, getAllBrands } from "../actions/brandActions";
+import {
+  createBrand,
+  getAllBrands,
+  getAllBrandsNonPage,
+} from "../actions/brandActions";
 
 const initialState = {
   allBrands: null,
@@ -23,6 +27,20 @@ export const brandsSlice = createSlice({
         state.allBrands = action.payload;
       })
       .addCase(getAllBrands.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payloads;
+      })
+      .addCase(getAllBrandsNonPage.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+        state.allBrands = null;
+      })
+      .addCase(getAllBrandsNonPage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.allBrands = action.payload;
+      })
+      .addCase(getAllBrandsNonPage.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payloads;
       })

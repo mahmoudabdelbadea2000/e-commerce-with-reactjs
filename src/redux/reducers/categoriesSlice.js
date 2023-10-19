@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createCategory, getAllCategories } from "../actions/categoriesActions";
+import {
+  createCategory,
+  getAllCategories,
+  getAllCategoriesNonPage,
+} from "../actions/categoriesActions";
 
 const initialState = {
   allCategories: null,
@@ -23,6 +27,20 @@ export const categoriesSlice = createSlice({
         state.allCategories = action.payload;
       })
       .addCase(getAllCategories.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payloads;
+      })
+      .addCase(getAllCategoriesNonPage.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+        state.allCategories = null;
+      })
+      .addCase(getAllCategoriesNonPage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.allCategories = action.payload;
+      })
+      .addCase(getAllCategoriesNonPage.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payloads;
       })
