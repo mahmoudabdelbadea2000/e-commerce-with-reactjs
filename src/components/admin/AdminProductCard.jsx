@@ -26,9 +26,11 @@ const AdminProductCard = ({ prod }) => {
         >
           delete
         </p>
-        <p className="cursor-pointer text-sm font-semibold text-gray-500">
-          edit
-        </p>
+        <Link to={`/admin/edit-product/${prod._id}`}>
+          <p className="cursor-pointer text-sm font-semibold text-gray-500">
+            edit
+          </p>
+        </Link>
       </div>
       <Link to={`/products/${prod._id}`}>
         <img src={prod.imageCover} alt="product_image" />

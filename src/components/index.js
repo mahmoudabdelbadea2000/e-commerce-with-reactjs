@@ -2,6 +2,7 @@ export { default as AdminAddBrand } from "./admin/AdminAddBrand.jsx";
 export { default as AdminAddCategory } from "./admin/AdminAddCategory.jsx";
 export { default as AdminAddProduct } from "./admin/AdminAddProduct.jsx";
 export { default as AdminAddSubCat } from "./admin/AdminAddSubCat.jsx";
+export { default as AdminEditProduct } from "./admin/AdminEditProduct.jsx";
 export { default as AdminManageProducts } from "./admin/AdminManageProducts.jsx";
 export { default as AdminOrder } from "./admin/AdminOrder.jsx";
 export { default as AdminOrders } from "./admin/AdminOrders.jsx";
