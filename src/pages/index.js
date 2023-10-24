@@ -2,6 +2,7 @@ export { default as AdminAddBrandPage } from "./admin/AdminAddBrandPage.jsx";
 export { default as AdminAddCategoryPage } from "./admin/AdminAddCategoryPage.jsx";
 export { default as AdminAddProductPage } from "./admin/AdminAddProductPage.jsx";
 export { default as AdminAddSubCatPage } from "./admin/AdminAddSubCatPage.jsx";
+export { default as AdminEditProductPage } from "./admin/AdminEditProductPage.jsx";
 export { default as AdminManageProductsPage } from "./admin/AdminManageProductsPage.jsx";
 export { default as AdminOrderPage } from "./admin/AdminOrderPage.jsx";
 export { default as LoginPage } from "./auth/LoginPage.jsx";

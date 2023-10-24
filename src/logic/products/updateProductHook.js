@@ -4,10 +4,13 @@ import notify from "../../hooks/useNotifcation";
 import avatar from "../../images/avatar.png";
 import { getAllBrandsNonPage } from "../../redux/actions/brandActions";
 import { getAllCategoriesNonPage } from "../../redux/actions/categoriesActions";
-import { createProduct } from "../../redux/actions/productsActions";
+import {
+  getOneProduct,
+  updateProduct,
+} from "../../redux/actions/productsActions";
 import { getSubCatsOnCategory } from "../../redux/actions/subCatsActions";
 
-const CreateProductHook = () => {
+const UpdateProductHook = (prodID) => {
   const dispatch = useDispatch();
   const [globalProductState, setGlobalProductState] = useState({
     img: avatar,
@@ -73,9 +76,6 @@ const CreateProductHook = () => {
     },
     catID: async (e) => {
       e.persist();
-      if (e.target.value !== "0") {
-        await dispatch(getSubCatsOnCategory(e.target.value));
-      }
       setGlobalProductState({
         ...globalProductState,
         catID: e.target.value,
@@ -123,29 +123,65 @@ const CreateProductHook = () => {
     },
   };
 
+  const { allCategories } = useSelector((state) => state.categories);
+  const { allBrands } = useSelector((state) => state.brands);
+  const { subCatsOnCats } = useSelector((state) => state.subCat);
+  const { oneProduct } = useSelector(
+    (state) => state.products
+  );
+
   // to get categories and brands
   useEffect(() => {
     const get = async () => {
+      await dispatch(getOneProduct(prodID));
       await dispatch(getAllCategoriesNonPage());
       await dispatch(getAllBrandsNonPage());
     };
     get();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // to implement the values to states
+  useEffect(() => {
+    if (oneProduct?.data) {
+      setGlobalProductState({
+        ...globalProductState,
+        img: oneProduct?.data?.imageCover,
+        prodName: oneProduct?.data?.title,
+        description: oneProduct?.data?.description,
+        QTY: oneProduct?.data?.quantity,
+        priceBefore: oneProduct?.data?.price,
+        priceAfter: oneProduct?.data?.priceAfterDiscount,
+        catID: oneProduct?.data?.category,
+        brandID: oneProduct?.data?.brand,
+        colors: oneProduct?.data?.availableColors,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [oneProduct?.data]);
 
   // to import subcategory when you select category
   useEffect(() => {
-    if (globalProductState.catID !== "0") {
-      if (subCatsOnCats?.data) {
-        setGlobalProductState({
-          ...globalProductState,
-          options: subCatsOnCats?.data,
-        });
-      }
-    } else setGlobalProductState({ ...globalProductState, options: [] });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (globalProductState.catID !== "0" && globalProductState.catID !== "") {
+      const get = async () => {
+        await dispatch(getSubCatsOnCategory(globalProductState.catID));
+      };
+      get();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalProductState.catID]);
 
-  const handleCreateProduct = async (e) => {
+  useEffect(() => {
+    if (subCatsOnCats?.data) {
+      setGlobalProductState({
+        ...globalProductState,
+        options: subCatsOnCats?.data,
+      });
+    } else setGlobalProductState({ ...globalProductState, options: [] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subCatsOnCats?.data]);
+
+  const handleUpdateProduct = async (e) => {
     e.preventDefault();
     if (
       globalProductState.imgSelected === null ||
@@ -176,44 +212,18 @@ const CreateProductHook = () => {
       formData.append("subcategory", item._id)
     );
     setGlobalProductState({ ...globalProductState, isPress: true });
-    await dispatch(createProduct(formData));
+    await dispatch(updateProduct({ prodID, formData }));
     setGlobalProductState({ ...globalProductState, isPress: false });
+    notify("update product done", "success");
   };
-
-  const { allCategories } = useSelector((state) => state.categories);
-  const { allBrands } = useSelector((state) => state.brands);
-  const { subCatsOnCats } = useSelector((state) => state.subCat);
-  const { isLoading } = useSelector((state) => state.products);
-
-  useEffect(() => {
-    if (isLoading === false) {
-      setGlobalProductState({
-        img: avatar,
-        imgSelected: null,
-        prodName: "",
-        description: "",
-        QTY: "",
-        priceBefore: "",
-        priceAfter: "",
-        catID: "",
-        brandID: "",
-        options: [],
-        subCatsSelected: [],
-        colors: [],
-        showColor: false,
-        isPress: false,
-      });
-      notify("create product done", "success");
-    }
-  }, [isLoading]);
 
   return {
     globalProductState,
     onChangeItems,
     allBrands,
     allCategories,
-    handleCreateProduct,
+    handleUpdateProduct,
   };
 };
 
-export default CreateProductHook;
+export default UpdateProductHook;

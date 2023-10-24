@@ -6,6 +6,7 @@ import {
   AdminAddCategoryPage,
   AdminAddProductPage,
   AdminAddSubCatPage,
+  AdminEditProductPage,
   AdminManageProductsPage,
   AdminOrderPage,
   AllBrandsPage,
@@ -56,6 +57,7 @@ function App() {
         <Route path="/admin/add-category" element={<AdminAddCategoryPage />} />
         <Route path="/admin/add-subcategory" element={<AdminAddSubCatPage />} />
         <Route path="/admin/add-product" element={<AdminAddProductPage />} />
+        <Route path="/admin/edit-product/:id" element={<AdminEditProductPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
