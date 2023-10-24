@@ -5,7 +5,6 @@ import GetOneProductHook from "../../logic/products/getOneProductHook";
 const ProductDetailes = () => {
   const { id } = useParams();
   const { oneProduct } = GetOneProductHook(id);
-  console.log(oneProduct?.data);
   return (
     <section className="flex justify-center items-center gap-4 flex-col sm:flex-row bg-white p-5 rounded-md">
       <div className="flex justify-center items-center basis-1/3">

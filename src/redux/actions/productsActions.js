@@ -1,7 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { useDeleteData } from "../../hooks/useDeleteData";
 import { useGetData } from "../../hooks/useGetData";
 import { useInsertDataWithImage } from "../../hooks/useInsertData";
-import { GET_ALL_PRODUCTS, GET_ONE_PRODUCT, CREATE_PRODUCT } from "../types";
+import {
+  CREATE_PRODUCT,
+  DELETE_PRODUCT,
+  GET_ALL_PRODUCTS,
+  GET_ONE_PRODUCT,
+} from "../types";
 
 export const getAllProducts = createAsyncThunk(
   GET_ALL_PRODUCTS,
@@ -35,6 +41,19 @@ export const createProduct = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await useInsertDataWithImage("/api/v1/products", formData);
+      return res;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteProduct = createAsyncThunk(
+  DELETE_PRODUCT,
+  async (prodID, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useDeleteData(`/api/v1/products/${prodID}`);
       return res;
     } catch (error) {
       return rejectWithValue(error.message);
