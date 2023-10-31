@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
+import HeaderSearchHook from "../../logic/search/headerSearchHook";
 import CartContainer from "../cart/CartContainer";
 
 const Header = () => {
   const [showCart, setShowCart] = useState(false);
+  const { onChangeWord } = HeaderSearchHook();
+
+  let word = "";
+  if (localStorage.getItem("searchWord") !== null)
+    word = localStorage.getItem("searchWord");
+
   return (
     <nav className="bg-slate-950 text-white relative">
       <div className="container">
@@ -16,6 +23,8 @@ const Header = () => {
           </div>
           <div className="col-span-8">
             <input
+              value={word}
+              onChange={onChangeWord}
               type="text"
               placeholder="search about every thinks"
               className="w-full rounded-sm focus:outline-none text-slate-400 pl-2 py-1"

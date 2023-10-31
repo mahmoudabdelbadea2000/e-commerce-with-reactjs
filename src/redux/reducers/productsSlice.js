@@ -4,6 +4,7 @@ import {
   deleteProduct,
   getAllProducts,
   getOneProduct,
+  searchProduct,
   updateProduct,
 } from "../actions/productsActions";
 
@@ -13,6 +14,7 @@ const initialState = {
   error: null,
   isLoading: true,
   newProduct: null,
+  searchProducts: null,
 };
 
 export const productsSlice = createSlice({
@@ -83,6 +85,20 @@ export const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(updateProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payloads;
+      })
+      .addCase(searchProduct.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.searchProducts = null;
+      })
+      .addCase(searchProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.searchProducts = action.payload;
+      })
+      .addCase(searchProduct.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payloads;
       });

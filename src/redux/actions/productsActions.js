@@ -8,6 +8,7 @@ import {
   DELETE_PRODUCT,
   GET_ALL_PRODUCTS,
   GET_ONE_PRODUCT,
+  SEARCH_PRODUCT,
   UPDATE_PRODUCT,
 } from "../types";
 
@@ -72,6 +73,19 @@ export const updateProduct = createAsyncThunk(
         `/api/v1/products/${prodID}`,
         formData
       );
+      return res;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const searchProduct = createAsyncThunk(
+  SEARCH_PRODUCT,
+  async (queryString, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await useGetData(`/api/v1/products?${queryString}`);
       return res;
     } catch (error) {
       return rejectWithValue(error.message);

@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import GetAllBrandsHook from "../../logic/brands/getAllBrandsHook";
+import GetAllCategoriesHook from "../../logic/categories/getAllCategoriesHook";
+import CatsBrandsSearchHook from "../../logic/search/CatsBrandsSearchHook";
 
 const SideFilter = () => {
   const [sideFilterToggle, setSideFilterToggle] = useState(false);
+  const { cats } = GetAllCategoriesHook();
+  const { brands } = GetAllBrandsHook();
+  const { SelectCategory, SelectBrand } = CatsBrandsSearchHook();
   return (
     <div
       className={`bg-white rounded-e-md fixed top-28 ${
@@ -18,7 +24,12 @@ const SideFilter = () => {
         </h5>
         <ul className=" ml-2 mt-2 flex flex-col gap-1">
           <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__all" />
+            <input
+              value="0"
+              type="checkbox"
+              className="cursor-pointer"
+              id="cat__all"
+            />
             <label
               htmlFor="cat__all"
               className="capitalize text-gray-500 text-sm cursor-pointer"
@@ -26,42 +37,27 @@ const SideFilter = () => {
               all
             </label>
           </li>
-          <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__one" />
-            <label
-              htmlFor="cat__one"
-              className="capitalize text-gray-500 text-sm cursor-pointer"
-            >
-              clothes
-            </label>
-          </li>
-          <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__two" />
-            <label
-              htmlFor="cat__two"
-              className="capitalize text-gray-500 text-sm cursor-pointer"
-            >
-              phones
-            </label>
-          </li>
-          <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__three" />
-            <label
-              htmlFor="cat__three"
-              className="capitalize text-gray-500 text-sm cursor-pointer"
-            >
-              tablats
-            </label>
-          </li>
-          <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__four" />
-            <label
-              htmlFor="cat__four"
-              className="capitalize text-gray-500 text-sm cursor-pointer"
-            >
-              laptops
-            </label>
-          </li>
+          {cats?.payload?.data?.length > 0
+            ? cats?.payload?.data?.map((cat) => {
+                return (
+                  <li className="flex items-center gap-1" key={cat._id}>
+                    <input
+                      value={cat._id}
+                      onChange={SelectCategory}
+                      type="checkbox"
+                      className="cursor-pointer"
+                      id={cat._id}
+                    />
+                    <label
+                      htmlFor={cat._id}
+                      className="capitalize text-gray-500 text-sm cursor-pointer"
+                    >
+                      {cat.name}
+                    </label>
+                  </li>
+                );
+              })
+            : null}
         </ul>
       </div>
       <div className="mt-3">
@@ -76,42 +72,27 @@ const SideFilter = () => {
               all
             </label>
           </li>
-          <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__one" />
-            <label
-              htmlFor="cat__one"
-              className="capitalize text-gray-500 text-sm cursor-pointer"
-            >
-              LG
-            </label>
-          </li>
-          <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__two" />
-            <label
-              htmlFor="cat__two"
-              className="capitalize text-gray-500 text-sm cursor-pointer"
-            >
-              apple
-            </label>
-          </li>
-          <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__three" />
-            <label
-              htmlFor="cat__three"
-              className="capitalize text-gray-500 text-sm cursor-pointer"
-            >
-              tornadow
-            </label>
-          </li>
-          <li className="flex items-center gap-1">
-            <input type="checkbox" className="cursor-pointer" id="cat__four" />
-            <label
-              htmlFor="cat__four"
-              className="capitalize text-gray-500 text-sm cursor-pointer"
-            >
-              toshipa
-            </label>
-          </li>
+          {brands?.payload?.data?.length > 0
+            ? brands?.payload?.data?.map((brand) => {
+                return (
+                  <li className="flex items-center gap-1" key={brand._id}>
+                    <input
+                      onChange={SelectBrand}
+                      type="checkbox"
+                      className="cursor-pointer"
+                      id={brand._id}
+                      value={brand._id}
+                    />
+                    <label
+                      htmlFor={brand._id}
+                      className="capitalize text-gray-500 text-sm cursor-pointer"
+                    >
+                      {brand.name}
+                    </label>
+                  </li>
+                );
+              })
+            : null}
         </ul>
       </div>
       <div className="mt-3">
